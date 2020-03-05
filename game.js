@@ -83,10 +83,17 @@ const check = () => {
     let robotblock = document.querySelector("#robotblock");
     let div = document.createElement('div');
     div.setAttribute('class', 'text');
+    
+    if (str.localeCompare("4A0B") === 0) {
+        div.innerHTML = "Done.";
+        robotblock.appendChild(div);
+        return;
+    }
 
     if (str[1] != 'A' || str[3] != 'B' || str.length != 4) {
         div.innerHTML = "No correct input!";
         robotblock.appendChild(div);
+        return;
     }
     
     let bulls = parseInt(str[0]);
@@ -95,6 +102,7 @@ const check = () => {
     if (Number.isNaN(bulls) || Number.isNaN(cows)) {
         div.innerHTML = "No correct input!";
         robotblock.appendChild(div);
+        return;
     }
 
     game.cal(bulls, cows);

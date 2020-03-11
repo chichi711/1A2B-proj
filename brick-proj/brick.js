@@ -121,14 +121,7 @@ function drawPaddle(){
     ctx.closePath();
 }
 
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height); 
-    drawBricks();
-    drawBall();
-    drawPaddle();
-    drawScore();
-    drawLives();
-    collisionDetection();
+function update(){
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius){
         dx = -dx;
     }
@@ -141,7 +134,9 @@ function draw(){
             lives--;
             if(!lives){
                 alert("GAME OVER");
-                document.location.reload();
+                setTimeout(function(){
+                    self.update();
+                }, 1000/60);
             }else{
                 x = canvas.width/2;
                 y = canvas.height-30;
@@ -156,6 +151,17 @@ function draw(){
     }else if(leftPressed && paddleX > 0){
         paddleX -=7;
     }
+}
+ 
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height); 
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    drawScore();
+    drawLives();
+    collisionDetection();
+    update();
     x += dx;
     y += dy;
     requestAnimationFrame(draw);
